@@ -1,0 +1,44 @@
+{% extends 'Company/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1" align="center">
+        <tr>
+            <td>#</td>
+            <td>Category</td>
+            <td>Quantity</td>
+            <td>Description</td>
+            <td>Price</td>
+            <td>Photo</td>
+            <td>Shop name</td>
+            <td>Action</td>
+        </tr>
+        {% for i in scrap %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.category.category_name}}</td>
+            <td>{{i.Scrap_Quantity}}</td>
+            <td>{{i.Scrap_Description}}</td>
+            <td>{{i.Scrap_Price}}</td>
+            <td><img src="{{i.Scrap_Photo.url}}" width="100" height="100" alt=""></td>
+            <td>{{i.User.User_Name}}</td>
+            <td><a href="{% url 'Company:sendrequest' i.id %}">Send Request</a></td>
+        </tr>
+        {% endfor %}
+        </tr>
+    </table>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'Company:ViewScrap' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

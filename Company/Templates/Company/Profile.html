@@ -1,0 +1,52 @@
+{% extends 'Company/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center">
+            <tr>
+                <td colspan="2" align="center"><img src="{{company.Company_Photo.url}}" alt="" width="150" height="150"></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{company.Company_Name}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{company.Company_Email}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{company.Company_Contact}}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>{{company.Company_Address}}</td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td>{{company.Place.district.district_name}}</td>
+            </tr>
+
+            <tr>
+                <td>Place</td>
+                <td>{{company.Place.Place_name}}</td>
+                
+            </tr>
+                <tr>
+            <td colspan="2"><a href="{% url 'Company:EditProfile' %}">EditProfile</a>
+            <a href="{% url 'Company:ChangePassword' %}">ChangePassword</a></td>
+            </tr>
+            </table>
+            </form>
+            
+</body>
+</html>
+{% endblock content %}

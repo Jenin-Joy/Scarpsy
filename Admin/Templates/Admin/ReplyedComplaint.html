@@ -1,0 +1,75 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3 align="center">User Complaint</h3>
+    <div class="card">
+        <div class="card-body">
+    <table align="center" class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>Reply</td>
+        </tr>
+        {% for i in user %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Complaint_Title}}</td>
+            <td>{{i.Complaint_Content}}</td>
+            <td>{{i.Complaint_Replay}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div></div>
+    <br>
+    <h3 align="center">Shop Complaint</h3>
+    <div class="card">
+        <div class="card-body">
+    <table align="center" class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>Reply</td>
+        </tr>
+        {% for i in shop %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Complaint_Title}}</td>
+            <td>{{i.Complaint_Content}}</td>
+            <td>{{i.Complaint_Replay}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div></div>
+    <br>
+    <h3 align="center">Company Complaint</h3>
+    <div class="card">
+        <div class="card-body">
+    <table align="center" class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>Reply</td>
+        </tr>
+        {% for i in company %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Complaint_Title}}</td>
+            <td>{{i.Complaint_Content}}</td>
+            <td>{{i.Complaint_Replay}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div></div>
+</body>
+</html>
+{% endblock content %}

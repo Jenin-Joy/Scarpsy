@@ -1,0 +1,53 @@
+{% extends 'User/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table cellpadding="10" align="center" border="1">
+        <tr>
+            <td>#</td>
+            <td>Shop</td>
+            <td>Date</td>
+            <td>Scarp</td>
+            <td>Scarp Amount</td>
+            <td>Scarp Description</td>
+            <td>Action</td>
+        </tr>
+        {% for i in book %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.shop.Shop_Name}}</td>
+            <td>{{i.shopbooking_date}}</td>
+            <td><img src="{{i.scarp.Scrap_Photo.url}}" width="100" height="100" alt=""></td>
+            <td>{{i.scarp.Scrap_Price}}</td>
+            <td>{{i.scarp.Scrap_Description}}</td>
+            <td>
+                {% if i.shopbooking_status == 1 %}
+                <span>Accepted</span>
+                {% elif i.shopbooking_status == 2 %}
+                <span>Rejected</span>
+                {% elif i.shopbooking_status == 3 %}
+                <span>Payed</span>
+                {% elif i.shopbooking_status == 4 %}
+                <span>Collected</span>
+                {% else %}
+                <a href="{% url 'User:verifyrequest' i.id 1 %}">Accept</a> <a href="{% url 'User:verifyrequest' i.id 2 %}">Reject</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'User:viewbooking' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

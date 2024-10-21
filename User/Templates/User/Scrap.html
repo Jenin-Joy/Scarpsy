@@ -1,0 +1,90 @@
+{% extends 'User/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center">
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select name="selcategory" id="selcategory" required>
+                        <option>--select--</option>
+                        {% for i in category %}
+                        <option value="{{i.id}}">{{i.category_name}}</option>
+                        {% endfor %}
+                        </select>
+                        </td>
+            </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td><input type="text" name="txtquantity" required id="" ></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td><input type="text" name="txtdescription" required id="" ></td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td><input type="text" name="txtprice" id="" required ></td>
+                    </tr>
+                    <tr>
+                        <td>Photo</td>
+                         <td><input type="file" name=txtphoto required></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="center">
+                            <input type="submit" value="Submit">
+                        </td>
+                </td>
+                </tr>
+            </table>
+        </form>
+        <br>
+        <table align="center">
+            <tr>
+                <td>#</td>
+                <td>Category</td>
+                <td>Quantity</td>
+                <td>Description</td>
+                <td>Price</td>
+                <td>Photo</td>
+                <td>Action</td>
+            </tr>
+            {% for i in scrap %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.category.category_name}}</td>
+            <td>{{i.Scrap_Quantity}}</td>
+            <td>{{i.Scrap_Description}}</td>
+            <td>{{i.Scrap_Price}}</td>
+            <td><img src="{{i.Scrap_Photo.url}}" width="100" height="100" alt=""></td>
+            <td> 
+                {% if i.scarp_status == 0 %}
+                <a href="{% url 'User:delscrap' i.id %}">Delete</a>
+                {% elif i.scarp_status == 1 %}
+                <span>Booking Accepted</span>
+                {% elif i.scarp_status == 2 %}
+                <span>Collected</span>
+                {% else %}
+                <span>Error</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+        {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'User:Scrap' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

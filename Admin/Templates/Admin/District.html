@@ -1,0 +1,55 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card mb-4">
+        <table align="center" cellpadding="10">
+            <tr>
+                <td class="col-md-2 col-form-label">District</td>
+                <td><input type="text" class="form-control" name="txt_district" id="" required value="{{disdata.district_name}}" placeholder="Enter District"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                <input type="submit" value="Submit" class="btn btn-primary">
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+    <br>
+    <div class="card">
+    <div class="card-body">
+    <table align="center" border="1" class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>District</td>
+            <td>Action</td>
+        </tr>
+        {% for i in district %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.district_name}}</td>
+            <td><a href="{% url 'Admin:deldistrict' i.id %}">Delete</a>
+                <a href="{% url 'Admin:editdistrict' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</div>
+    {% if msg %}
+    <script>
+      alert("{{msg}}")
+      window.location = "{% url 'Admin:District' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

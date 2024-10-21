@@ -1,0 +1,56 @@
+{% extends 'Company/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1" align="center">
+        <tr>
+            <td>#</td>
+            <td>Category</td>
+            <td>Quantity</td>
+            <td>Description</td>
+            <td>Price</td>
+            <td>Photo</td>
+            <td>Shop name</td>
+            <td>Status</td>
+        </tr>
+        {% for i in booking %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.scarp.category.category_name}}</td>
+            <td>{{i.scarp.Scrap_Quantity}}</td>
+            <td>{{i.scarp.Scrap_Description}}</td>
+            <td>{{i.scarp.Scrap_Price}}</td>
+            <td><img src="{{i.scarp.Scrap_Photo.url}}" width="100" height="100" alt=""></td>
+            <td>{{i.scarp.Shop.Shop_Name}}</td>
+            <td>
+                {% if i.companybooking_status == 1 %}
+                <span>Booking Accepted | <a href="{% url 'Company:payment' i.id %}">Payment</a></span>
+                {% elif i.companybooking_status == 2 %}
+                <span>Booking Rejected</span>
+                {% elif i.companybooking_status == 3 %}
+                <span>Payed | <a href="{% url 'Company:collectscarp' i.id %}">Collected</a></span>
+                {% elif i.companybooking_status == 4 %}
+                <span>Collected</span>
+                {% else %}
+                <span>Booking Pending</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tr>
+    </table>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'Company:Booking' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

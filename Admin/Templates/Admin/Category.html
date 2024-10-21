@@ -1,0 +1,56 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card mb-4">
+        <table cellpadding="10" align="center">
+            <tr>
+                <td>Category</td>
+                <td><input type="text" class="form-control" name="txt_category" id="" required value="{{catdata.category_name}}" placeholder="Enter Category"></td>
+            </tr>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                <input type="submit" value="Submit" class="btn btn-primary">
+                </td>
+            </tr>
+        </table>
+        </div>
+    </form>
+    <br>
+    <div class="card">
+        <div class="card-body">
+    <table align="center" border="1" class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>Category</td>
+            <td>Action</td>
+        </tr>
+        {% for i in category %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.category_name}}</td>
+            <td><a href="{% url 'Admin:delcategory' i.id %}">Delete</a>
+            <a href="{% url 'Admin:editcategory' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</div>
+    {% if msg %}
+    <script>
+      alert("{{msg}}")
+      window.location = "{% url 'Admin:Category' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

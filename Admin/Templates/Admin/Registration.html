@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table border="3" align="center">
+  <tr>
+    <td>Name</td>
+    <td><input type="text" name="name" id="" required value="{{namedata.Registration_name}}"></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td><input type="text" name="email" id="" required value="{{emaildata.Registration_email}}"></td>>
+       </tr>
+  <tr>
+    <td>Password</td>
+ <td><input type="password" name="password" id="" required value="{{namedata.Registration_password}}"></td>
+</tr>
+<tr>
+    <td colspan="2" align="center">
+       <input type="submit" name="btnsubmit" value="Register" id="">
+       <input type="reset"  name="btnreset"  value="Cancel" id="">
+    </td>
+</tr>
+</table>
+</form> 
+<br>  
+<table align="center" border="2">
+        <tr>
+            <td>SI No</td> 
+            <td>Name</td>
+            <td>Email</td>
+            <td>Pasword</td>
+            <td>Action</td> 
+        </tr>
+        {% for i in Registration %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Registration_name}}</td>
+            <td>{{i.Registration_email}}</td>
+            <td>{{i.Registration_password}}</td>
+            <td><a href="{% url 'Admin:delRegistration' i.id %}">Delete</a>
+                <a href="{% url 'Admin:editRegistration' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+  </table> 
+  {% if msg %}
+    <script>
+      alert("{{msg}}")
+      window.location = "{% url 'Admin:Registration' %}"
+    </script>
+    {% endif %}
+</body>
+</html>

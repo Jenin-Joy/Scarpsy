@@ -1,0 +1,66 @@
+{% extends 'Company/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .text-warning {
+            color: orange;
+        }
+        .card {
+            padding: 14px;
+            box-shadow: 0 0 10px gray;
+            width: fit-content;
+            border-radius: 13px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        {% for i,j in product %}
+        <div class="card">
+            <div><img src="{{i.product_photo.url}}" width="150" alt=""></div>
+            <div>Name :{{i.product_name}}</div>
+            <div>Price :{{i.product_price}}</div>
+            <div>
+                {% for k in ar %} {% if k <= j %} <i class="fa-solid fa-star text-warning"></i>
+                    {% else %}
+                    <i class="fa-solid fa-star star-light"></i>
+                    {% endif %} {% endfor %}
+            </div>
+            <div>
+                {% if i.total_stock == 0 %}
+                <span style="color: red;">Out Of Stock</span>
+                {% else %}
+                <a href="{% url 'Company:Addcart' i.id %}">Add To Cart</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'Company:viewproduct' %}"
+    </script>
+    {% endif %}
+</body>
+
+</html>
+{% endblock content %}

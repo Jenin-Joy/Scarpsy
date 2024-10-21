@@ -1,0 +1,35 @@
+{% extends 'Company/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table cellpadding="10">
+        <tr>
+            <td>#</td>
+            <td>Amount</td>
+            <td>Date</td>
+            <td>Action</td>
+        </tr>
+        {% for i in book %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.booking_amount}}</td>
+            <td>{{i.booking_date}}</td>
+            <td>
+                {% if i.booking_status == 2 %}
+                <a href="{% url 'Company:myproducts' i.id %}">View Products</a>
+                {% else %}
+                <a href="{% url 'Company:reproductpayment' i.id %}">Payment</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}

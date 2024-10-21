@@ -1,0 +1,50 @@
+{% extends 'User/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name" required title="Name Allows Only Alphabets,Spaces and First Letter Must Be Capital Letter" pattern="^[A-Z]+[a-zA-Z ]*$" id="" value="{{user.User_Name}}"></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="email" id="" required value="{{user.User_Email}}"></td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td><input type="text" name="contact" id="" value="{{user.User_Contact}}" pattern="[7-9]{1}[0-9]{9}" title="Phone number with 7-9 and remaing 9 digit with 0-9"></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    <textarea name="txtaddress" rows="6" required>{{user.User_Address}}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center">
+                    <input type="submit" value="Edit">
+                </td>
+            </tr>
+        </table>
+    </form>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'User:MyProfile' %}"
+    </script>
+    {% endif %}
+</body>
+
+</html>
+{% endblock content %}

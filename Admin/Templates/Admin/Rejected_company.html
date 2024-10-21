@@ -1,0 +1,44 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card">
+        <div class="card-body">
+    <table align="center" cellpadding="10" class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Contact</td>
+            <td>Address</td>
+            <td>District</td>
+            <td>Place</td>
+            <td>Photo</td>
+            <td>Proof</td>
+            <td align="center" colspan="2">Action</td>
+        </tr>
+        {% for i in company %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.Company_Name}}</td>
+            <td>{{i.Company_Email}}</td>
+            <td>{{i.Company_Contact}}</td>
+            <td>{{i.Company_Address}}</td>
+            <td>{{i.Place.district.district_name}}</td>
+            <td>{{i.Place.Place_name}}</td>
+            <td><a href="{{i.Company_Photo.url}}"><img src="{{i.Company_Photo.url}}" width="80" height="80" alt=""></a></td>
+            <td><a href="{{i.Company_Proof.url}}"><img src="{{i.Company_Proof.url}}" width="80" height="80" alt=""></a></td>
+            <td><a href="{% url 'Admin:verifycompany' i.id 1 %}">Approve</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div></div>
+</body>
+</html>
+{% endblock content %}

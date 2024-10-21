@@ -1,0 +1,50 @@
+{% extends 'Shop/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center">
+            <tr>
+                <td colspan="2" align="center"><img src="{{shop.Shop_Photo.url}}" alt="" width="150" height="150"></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{shop.Shop_Name}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{shop.Shop_Email}}</td>
+            </tr>
+            <tr>
+                <td>Contact</td>
+                <td>{{shop.Shop_Contact}}</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>{{shop.Shop_Address}}</td>
+            </tr>
+            <tr>
+                <td>District</td>
+                <td>{{shop.Place.district.district_name}}</td>
+            </tr>
+
+            <tr>
+                <td>Place</td>
+                <td>{{shop.Place.Place_name}}</td>
+                
+            </tr>
+                <tr>
+            <td colspan="2"><a href="{% url 'Shop:EditProfile' %}">EditProfile</a>
+            <a href="{% url 'Shop:ChangePassword' %}">ChangePassword</a></td>
+            </tr>
+            </table></form>
+</body>
+</html>
+{% endblock content %}

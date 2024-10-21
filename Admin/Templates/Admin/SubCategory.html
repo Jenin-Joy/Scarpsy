@@ -1,0 +1,71 @@
+{% extends 'Admin/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card mb-4">
+        <table align="center" cellpadding="10">
+            <tr>
+                    <td>Category</td>
+                    <td>
+                        <select name="selcategory" class="form-control" required>
+                        <option>--select--</option>
+                        {% for i in category %}
+                        <option
+                        {% if editsubcategory.category.id == i.id %}
+                        selected
+                        {% endif %}
+                        value="{{i.id}}">{{i.category_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                <tr>
+                    <td>Subcategory</td>
+                    <td><input type="text" required class="form-control" name="txt_Subcategory" value="{{editsubcategory.subcategory_name}}" id=""></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </td>
+                    </tr>
+                </table>
+                </div>
+                </form>
+                <br>
+                <div class="card">
+                    <div class="card-body">
+    <table align="center" border="1" class="table table-bordered">
+        <tr>
+            <td>SI No</td>
+            <td>Category</td>
+            <td>Subcategory</td>
+            <td>Action</td>
+        </tr>
+        {% for i in subcategory %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.category.category_name}}</td>
+            <td>{{i.subcategory_name}}</td>
+            <td><a href="{% url 'Admin:delsubcategory' i.id %}">Delete</a>
+                <a href="{% url 'Admin:editsubcategory' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div></div>
+    {% if msg %}
+    <script>
+      alert("{{msg}}")
+      window.location = "{% url 'Admin:subcategory' %}"
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}
